@@ -81,3 +81,87 @@ MODIFY FirstName VARCHAR(50) NOT NULL;
 
 ALTER TABLE Customers 
 ADD CONSTRAINT uq_Email UNIQUE (Email);
+
+
+USE bankingdb;
+
+
+INSERT INTO Customers
+(CustomerID, FirstName, LastName, Email, Phone, DateOfBirth)
+VALUES
+(101,'Rahul','Sharma','rahul@gmail.com','9876543210','1998-04-15');
+
+INSERT INTO Accounts
+(AccountID, CustomerID, AccountType, Balance)
+VALUES
+(201,101,'Savings',25000);
+
+SET SQL_SAFE_UPDATES=0;
+
+
+UPDATE Customers 
+SET Phone='9999999999'
+WHERE CustomerID=101;
+
+SELECT * FROM Customers 
+WHERE CustomerID=101;
+
+UPDATE Customers 
+SET Email='rahul.sharma@gmail.com'
+WHERE CustomerID=101;
+
+SELECT * FROM Customers WHERE CustomerID=101;
+
+USE bankingdb;
+
+ALTER TABLE Accounts
+ADD constraint fk_CustomerID
+FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID);
+
+ALTER TABLE Accounts
+ADD constraint fk_CustomerID
+FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID);
+
+ALTER TABLE Branches 
+ADD constraint pk_branchid
+PRIMARY KEY (branchID);
+
+ALTER TABLE Accounts 
+ADD COLUMN branchID INT;
+
+SELECT * FROM ACCOUNTS;
+
+ALTER TABLE Accounts
+ADD constraint fk_BranchID
+FOREIGN KEY (BranchID) REFERENCES Branches(BranchID);
+
+ALTER TABLE Transactions 
+ADD constraint pk_TransactionID
+PRIMARY KEY (TransactionID);
+
+ALTER TABLE Transactions 
+ADD COLUMN AccountID INT;
+
+ALTER TABLE Accounts 
+ADD CONSTRAINT PK_ACCOUNTID
+Primary KEY (AccountID);
+
+ALTER TABLE Transactions
+ADD constraint fk_AccountID
+FOREIGN KEY (AccountID) REFERENCES Accounts(AccountID);
+
+
+ALTER TABLE Loans
+ADD CONSTRAINT PK_LoanID
+Primary KEY (LoanID);
+
+ALTER TABLE Loans 
+ADD COLUMN CustomerID INT;
+
+ALTER TABLE Loans
+ADD constraint fk_customerID_and_loan
+FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID);
+
+
+
+
