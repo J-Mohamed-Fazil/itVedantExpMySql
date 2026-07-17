@@ -162,6 +162,26 @@ ALTER TABLE Loans
 ADD constraint fk_customerID_and_loan
 FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID);
 
+USE bankingdb;
 
+SELECT * FROM Transactions;
 
+SELECT * FROM Accounts;
+DESC Transactions;
+
+INSERT INTO TRANSACTIONs 
+VALUES 
+(302,'2026-03-16',25000,'credit',201);
+
+DELETE FROM TRANSACTIONS 
+WHERE TRANSACTIONID=302;
+
+SELECT * FROM TRANSACTIONS;
+
+SELECT * FROM ACCOUNTS;
+
+DELETE FROM Accounts
+WHERE AccountID = 202;
+
+SELECT * FROM Accounts;
 
