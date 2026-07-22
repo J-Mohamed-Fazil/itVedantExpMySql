@@ -513,3 +513,47 @@ SELECT ACCOUNTTYPE,SUM(BALANCE) AS TOTALBALANCE
 FROM ACCOUNTS 
 GROUP BY ACCOUNTTYPE 
 HAVING SUM(BALANCE)>25000; 
+
+
+SELECT LoanID,CustomerId,LoanAmount,
+RANK() OVER (
+	ORDER BY LoanAmount DESC 
+) AS LoanRank
+FROM LOANS;
+
+SELECT LOANID,CUSTOMERID,LOANAMOUNT,
+DENSE_RANK() OVER(
+	ORDER BY LOANAMOUNT DESC
+) AS DENSERANK
+FROM LOANS;
+
+SELECT LOANID,CUSTOMERID,LOANAMOUNT,
+ROW_NUMBER() OVER(
+	ORDER BY LOANAMOUNT DESC 
+) AS RowNumber
+FROM Loans;
+
+SELECT LoanId,CustomerId,LoanAmount,
+ROW_NUMBER() OVER(
+	Partition BY CustomerId
+    order by LoanAmount DESC
+) AS RowNum 
+FROM Loans;
+
+SELECT LoanId,CustomerId,LoanAmount,
+SUM(LoanAmount) OVER (
+	ORDER BY LoanAmount DESC 
+)AS RunningTotal
+FROM LOANS;
+
+SELECT LoanId,CustomerId,LoanAmount,
+LAG(LoanAmount) OVER (
+	ORDER BY LoanAmount DESC
+) AS PreviousLoanAmount
+FROM Loans;
+
+SELECT LoanId,CustomerId,LoanAmount,
+LEAD(LoanAmount) over(
+	ORDER BY LoanAmount DESC
+) AS NextLoanAmount
+FROM Loans;
